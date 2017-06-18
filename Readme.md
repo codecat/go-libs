@@ -1,6 +1,12 @@
 # Codecat Go libs
 
-These are the Go libraries I've written that I use in my Go applications. You can use `go get` to install them.
+These are the Go libraries I've written that I use in my Go applications.
+
+To use these, install them using `go get`, for example:
+
+```
+$ go get github.com/codecat/go-libs/log
+```
 
 ## Libraries
 
