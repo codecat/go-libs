@@ -8,7 +8,10 @@ type LogConfig struct {
 	MinLevel, MaxLevel int
 }
 
-var Config LogConfig
+var Config = LogConfig{
+	CatTrace,
+	CatFatal,
+}
 
 const (
 	CatTrace = iota
