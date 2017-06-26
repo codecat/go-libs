@@ -1,8 +1,10 @@
 package log
 
-import "fmt"
-import "time"
-import "github.com/fatih/color"
+import (
+	"time"
+	"fmt"
+	"github.com/fatih/color"
+)
 
 type LogConfig struct {
 	MinLevel, MaxLevel int
