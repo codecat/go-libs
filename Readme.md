@@ -28,27 +28,27 @@ $ go get github.com/codecat/go-libs/settings
 
 * Instantiate a structure:
   ```go
-     var config struct {
-       Foo string
-       Bar string
-     }
-   ```
+  var config struct {
+    Foo string
+    Bar string
+  }
+  ```
 * Call `settings.Load(filename string, out interface{})` on the structure:
   ```go
-    func main() {
-      err := settings.Load("config.yaml", &config)
-      if err != nil {
-        fmt.Println(err.Error())
-      }
-    }
-    ```
-* After modifying programmatically, save using `settings.Save(filename string, in interface{})`:
-  ```go
-    err := settings.Save("config.yaml", &config)
+  func main() {
+    err := settings.Load("config.yaml", &config)
     if err != nil {
       fmt.Println(err.Error())
     }
-    ```
+  }
+  ```
+* After modifying programmatically, save using `settings.Save(filename string, in interface{})`:
+  ```go
+  err := settings.Save("config.yaml", &config)
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  ```
 
 ## License
 
