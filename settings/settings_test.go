@@ -22,8 +22,13 @@ var config struct {
 	SaveTest string
 }
 
-func TestLoadConfig(t *testing.T) {
-	LoadConfig("test.yaml", &config)
+func TestLoad(t *testing.T) {
+	err := Load("test.yaml", &config)
+
+	if err != nil {
+		t.Error("Failed to load test.yaml: ", err.Error())
+		return
+	}
 
 	if config.Test.KeyA != "valuea" {
 		t.Error("config.Test.KeyA is not \"valuea\"")
@@ -42,14 +47,16 @@ func TestLoadConfig(t *testing.T) {
 	}
 }
 
-func TestSaveConfig(t *testing.T) {
+func TestSave(t *testing.T) {
 	config.SaveTest = "yes"
 
-	if !SaveConfig(".saved.yaml", &config) {
-		t.Error("SaveConfig returned false")
+	err := Save(".saved.yaml", &config)
+
+	if err != nil {
+		t.Error("Failed to save .saved.yaml: ", err.Error())
 	}
 
-	_, err := os.Stat(".saved.yaml")
+	_, err = os.Stat(".saved.yaml")
 	if err != nil {
 		t.Error(".saved.yaml does not exist")
 	}
