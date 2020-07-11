@@ -2,6 +2,7 @@ package log
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -19,10 +20,12 @@ type Config struct {
 
 // CurrentConfig is the configuration currently used for logging
 var CurrentConfig = Config{
-	MinLevel:  CatTrace,
-	MaxLevel:  CatFatal,
-	Timestamp: true,
-	Category:  true,
+	MinLevel:        CatTrace,
+	MaxLevel:        CatFatal,
+	Timestamp:       true,
+	TimestampFormat: "%02d:%02d:%02d.%03d | ",
+	Category:        true,
+	CategoryFormat:  "% 5s | ",
 }
 
 const (
@@ -81,22 +84,26 @@ func writeLine(cat int, s string, args ...interface{}) {
 		return
 	}
 
-	catColor := colorForCategory(cat)
-	color.Set(catColor)
+	fullOutput := fmt.Sprintf(s, args...)
+	lines := strings.Split(fullOutput, "\n")
+	for _, line := range lines {
+		catColor := colorForCategory(cat)
+		color.Set(catColor)
 
-	if CurrentConfig.Timestamp {
-		tmNow := time.Now()
-		fmt.Printf("%02d:%02d:%02d.%03d | ", tmNow.Hour(), tmNow.Minute(), tmNow.Second(), tmNow.Nanosecond()/1000000)
+		if CurrentConfig.Timestamp {
+			tmNow := time.Now()
+			fmt.Printf(CurrentConfig.TimestampFormat, tmNow.Hour(), tmNow.Minute(), tmNow.Second(), tmNow.Nanosecond()/1000000)
+		}
+
+		if CurrentConfig.Category {
+			catName := nameForCategory(cat)
+			fmt.Printf(CurrentConfig.CategoryFormat, catName)
+		}
+
+		color.Unset()
+
+		fmt.Printf("%s\n", line)
 	}
-
-	if CurrentConfig.Category {
-		catName := nameForCategory(cat)
-		fmt.Printf("% 5s | ", catName)
-	}
-
-	color.Unset()
-
-	fmt.Printf(s+"\n", args...)
 }
 
 func passesFilter(cat int) bool {
