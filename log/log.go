@@ -3,6 +3,7 @@ package log
 import (
 	"fmt"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -27,6 +28,8 @@ var CurrentConfig = Config{
 	Category:        true,
 	CategoryFormat:  "% 5s | ",
 }
+
+var logLock sync.Mutex
 
 const (
 	// CatTrace is the level for trace messages
@@ -83,6 +86,9 @@ func writeLine(cat int, s string, args ...interface{}) {
 	if !passesFilter(cat) {
 		return
 	}
+
+	logLock.Lock()
+	defer logLock.Unlock()
 
 	fullOutput := fmt.Sprintf(s, args...)
 	lines := strings.Split(fullOutput, "\n")
