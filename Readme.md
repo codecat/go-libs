@@ -15,8 +15,7 @@ $ go get github.com/codecat/go-libs/settings
 
 ### `log`
 
-* Optionally, first call `log.Open(log.CatTrace, log.CatFatal)` where the first parameter is the minimum log level and the second parameter is the maximum log level.
-* Then call any of these to actually write to the log:
+* Call any of these to actually write to the log:
   * `log.Trace(format string, args ...interface{})`
   * `log.Debug(format string, args ...interface{})`
   * `log.Info(format string, args ...interface{})`
