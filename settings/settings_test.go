@@ -1,8 +1,8 @@
 package settings
 
 import (
-	"testing"
 	"os"
+	"testing"
 )
 
 var config struct {
@@ -23,11 +23,16 @@ var config struct {
 }
 
 func TestLoad(t *testing.T) {
-	err := Load("test.yaml", &config)
+	if Load("non-existing.yaml", nil) == nil {
+		t.Error("expected an error for non-existing config file")
+	}
 
-	if err != nil {
-		t.Error("Failed to load test.yaml: ", err.Error())
-		return
+	if Load("wrong.yaml", &config) == nil {
+		t.Error("expected an error for deserializing into nil object")
+	}
+
+	if err := Load("test.yaml", &config); err != nil {
+		t.Fatalf("failed to load test.yaml: %s", err.Error())
 	}
 
 	if config.Test.KeyA != "valuea" {
@@ -50,14 +55,11 @@ func TestLoad(t *testing.T) {
 func TestSave(t *testing.T) {
 	config.SaveTest = "yes"
 
-	err := Save(".saved.yaml", &config)
-
-	if err != nil {
-		t.Error("Failed to save .saved.yaml: ", err.Error())
+	if err := Save(".saved.yaml", &config); err != nil {
+		t.Errorf("failed to save .saved.yaml: %s", err.Error())
 	}
 
-	_, err = os.Stat(".saved.yaml")
-	if err != nil {
+	if _, err := os.Stat(".saved.yaml"); err != nil {
 		t.Error(".saved.yaml does not exist")
 	}
 

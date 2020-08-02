@@ -2,10 +2,12 @@ package settings
 
 import (
 	"io/ioutil"
-	"gopkg.in/yaml.v2"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
+// Load will deserialize the given yaml file into the given object
 func Load(filename string, out interface{}) error {
 	configData, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -20,6 +22,7 @@ func Load(filename string, out interface{}) error {
 	return nil
 }
 
+// Save will serialize the given object into the given yaml file
 func Save(filename string, in interface{}) error {
 	configData, err := yaml.Marshal(in)
 	if err != nil {
