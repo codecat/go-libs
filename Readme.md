@@ -1,8 +1,8 @@
 # Codecat Go libs
 
-[![Build Status](https://travis-ci.org/codecat/go-libs.svg?branch=master)](https://travis-ci.org/codecat/go-libs)
+[![Build Status](https://travis-ci.org/codecat/go-libs.svg?branch=master)](https://travis-ci.org/codecat/go-libs) [![Go Report Card](https://goreportcard.com/badge/github.com/codecat/go-libs)](https://goreportcard.com/report/github.com/codecat/go-libs)
 
-These are the Go libraries I've written that I use in my Go applications.
+These are some of the smaller Go helper libraries I've written that I use in my Go applications.
 
 To use these, install them using `go get`, for example:
 
