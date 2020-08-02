@@ -8,22 +8,70 @@ To use these, install them using `go get`, for example:
 
 ```
 $ go get github.com/codecat/go-libs/log
+$ go get github.com/codecat/go-libs/pacman
 $ go get github.com/codecat/go-libs/settings
 ```
 
 ## Libraries
 
 ### `log`
+Call any of these to actually write to the log:
+* `log.Trace(format string, args ...interface{})`
+* `log.Debug(format string, args ...interface{})`
+* `log.Info(format string, args ...interface{})`
+* `log.Warn(format string, args ...interface{})`
+* `log.Error(format string, args ...interface{})`
+* `log.Fatal(format string, args ...interface{})`
 
-* Call any of these to actually write to the log:
-  * `log.Trace(format string, args ...interface{})`
-  * `log.Debug(format string, args ...interface{})`
-  * `log.Info(format string, args ...interface{})`
-  * `log.Warn(format string, args ...interface{})`
-  * `log.Error(format string, args ...interface{})`
-  * `log.Fatal(format string, args ...interface{})`
+### `pacman`
+Binary packing streams.
+
+* To pack data directly to a file:
+  ```go
+  file, _ := os.Create("test.bin")
+	packer, _ := pacman.NewPacker(file)
+  ```
+* To create a packer for a memory stream:
+  ```go
+  buffer := new(bytes.Buffer)
+  packer, _ := pacman.NewPacker(buffer)
+  packer.WriteUInt32(0)
+  ```
+* To unpack data from a file:
+  ```go
+  file, _ := os.Open("test.bin")
+	unpacker, _ := pacman.NewUnpacker(file)
+  ```
+* To unpack data from a byte slice:
+  ```go
+  buffer := bytes.NewBuffer(slice)
+  unpacker, _ := pacman.NewUnpacker(buffer)
+  ```
+
+Also has support for "blocks", which is useful if you want to be able to skip blocks for whatever reason.
+
+```go
+packer, _ := pacman.NewPacker(buffer)
+b := packer.BeginBlock()
+b.WriteInt32(1)
+b.WriteInt32(2)
+b.WriteInt32(3)
+packer.EndBlock()
+packer.WriteInt32(4)
+```
+
+```go
+unpacker, _ := pacman.NewUnpacker(buffer)
+b := unpacker.ReadBlock()
+x := b.ReadInt32() // 1
+y := b.ReadInt32() // 2
+// We can ignore (or read later) the 3rd integer in the block
+unpacker.ReadInt32() // 4
+z := b.ReadInt32() // 3
+```
 
 ### `settings`
+Load and save a settings yaml file.
 
 * Instantiate a structure:
   ```go
@@ -53,7 +101,7 @@ $ go get github.com/codecat/go-libs/settings
 
 These libraries are licensed under the MIT license.
 
-Copyright © 2017 github.com/codecat
+Copyright © 2020 Melissa Geels
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
