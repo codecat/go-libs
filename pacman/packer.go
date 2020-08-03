@@ -47,36 +47,36 @@ func (packer *packer) Write(v interface{}) {
 }
 
 func (packer *packer) WriteUInt8(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, uint8(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(uint8))
 }
 func (packer *packer) WriteUInt16(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, uint16(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(uint16))
 }
 func (packer *packer) WriteUInt32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, uint32(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(uint32))
 }
 func (packer *packer) WriteUInt64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, uint64(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(uint64))
 }
 
 func (packer *packer) WriteInt8(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, int8(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(int8))
 }
 func (packer *packer) WriteInt16(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, int16(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(int16))
 }
 func (packer *packer) WriteInt32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, int32(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(int32))
 }
 func (packer *packer) WriteInt64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, int64(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(int64))
 }
 
 func (packer *packer) WriteFloat32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, float32(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(float32))
 }
 func (packer *packer) WriteFloat64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, float64(v))
+	binary.Write(packer.writer, packer.byteOrder, v.(float64))
 }
 
 func (packer *packer) WriteString(v string) {
