@@ -34,6 +34,9 @@ func (packer *packer) WriteUint8(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, uint8(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, uint8(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -65,6 +68,9 @@ func (packer *packer) WriteUint16(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, uint16(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, uint16(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -96,6 +102,9 @@ func (packer *packer) WriteUint32(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, uint32(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, uint32(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -127,6 +136,9 @@ func (packer *packer) WriteUint64(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, uint64(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, uint64(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -158,6 +170,9 @@ func (packer *packer) WriteInt8(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, int8(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, int8(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -189,6 +204,9 @@ func (packer *packer) WriteInt16(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, int16(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, int16(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -220,6 +238,9 @@ func (packer *packer) WriteInt32(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, int32(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, int32(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -251,6 +272,9 @@ func (packer *packer) WriteInt64(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, int64(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, int64(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -282,6 +306,9 @@ func (packer *packer) WriteFloat32(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, float32(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, float32(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
 
@@ -313,5 +340,8 @@ func (packer *packer) WriteFloat64(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, float64(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, float64(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }

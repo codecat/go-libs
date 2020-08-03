@@ -39,5 +39,8 @@ func (packer *packer) WriteVPackerType(v interface{}) {
 		binary.Write(packer.writer, packer.byteOrder, VPackerType(v.(float32)))
 	case float64:
 		binary.Write(packer.writer, packer.byteOrder, VPackerType(v.(float64)))
+
+	default:
+		panic("unhandled pack type")
 	}
 }
