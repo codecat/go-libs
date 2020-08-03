@@ -15,11 +15,19 @@ type Unpacker interface {
 	ReadUInt16() uint16
 	ReadUInt32() uint32
 	ReadUInt64() uint64
+	ReadUIntFrom8() uint
+	ReadUIntFrom16() uint
+	ReadUIntFrom32() uint
+	ReadUIntFrom64() uint
 
 	ReadInt8() int8
 	ReadInt16() int16
 	ReadInt32() int32
 	ReadInt64() int64
+	ReadIntFrom8() int
+	ReadIntFrom16() int
+	ReadIntFrom32() int
+	ReadIntFrom64() int
 
 	ReadFloat32() float32
 	ReadFloat64() float64
@@ -57,6 +65,26 @@ func (unpacker *unpacker) ReadUInt64() uint64 {
 	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
 	return ret
 }
+func (unpacker *unpacker) ReadUIntFrom8() uint {
+	var ret uint8
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return uint(ret)
+}
+func (unpacker *unpacker) ReadUIntFrom16() uint {
+	var ret uint16
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return uint(ret)
+}
+func (unpacker *unpacker) ReadUIntFrom32() uint {
+	var ret uint32
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return uint(ret)
+}
+func (unpacker *unpacker) ReadUIntFrom64() uint {
+	var ret uint64
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return uint(ret)
+}
 
 func (unpacker *unpacker) ReadInt8() int8 {
 	var ret int8
@@ -77,6 +105,26 @@ func (unpacker *unpacker) ReadInt64() int64 {
 	var ret int64
 	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
 	return ret
+}
+func (unpacker *unpacker) ReadIntFrom8() int {
+	var ret int8
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return int(ret)
+}
+func (unpacker *unpacker) ReadIntFrom16() int {
+	var ret int16
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return int(ret)
+}
+func (unpacker *unpacker) ReadIntFrom32() int {
+	var ret int32
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return int(ret)
+}
+func (unpacker *unpacker) ReadIntFrom64() int {
+	var ret int64
+	binary.Read(unpacker.reader, unpacker.byteOrder, &ret)
+	return int(ret)
 }
 
 func (unpacker *unpacker) ReadFloat32() float32 {
