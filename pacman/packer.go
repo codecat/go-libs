@@ -17,10 +17,16 @@ type Packer interface {
 	WriteUInt32(v uint32)
 	WriteUInt64(v uint64)
 
+	// Writes as a 32 bit unsigned integer
+	WriteUInt(v uint)
+
 	WriteInt8(v int8)
 	WriteInt16(v int16)
 	WriteInt32(v int32)
 	WriteInt64(v int64)
+
+	// Writes as a 32 bit integer
+	WriteInt(v int)
 
 	WriteFloat32(v float32)
 	WriteFloat64(v float64)
@@ -59,6 +65,10 @@ func (packer *packer) WriteUInt64(v uint64) {
 	binary.Write(packer.writer, packer.byteOrder, v)
 }
 
+func (packer *packer) WriteUInt(v uint) {
+	packer.WriteUInt32((uint32)(v))
+}
+
 func (packer *packer) WriteInt8(v int8) {
 	binary.Write(packer.writer, packer.byteOrder, v)
 }
@@ -70,6 +80,10 @@ func (packer *packer) WriteInt32(v int32) {
 }
 func (packer *packer) WriteInt64(v int64) {
 	binary.Write(packer.writer, packer.byteOrder, v)
+}
+
+func (packer *packer) WriteInt(v uint) {
+	packer.WriteInt32((int32)(v))
 }
 
 func (packer *packer) WriteFloat32(v float32) {
