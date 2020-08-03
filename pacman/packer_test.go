@@ -46,22 +46,22 @@ func TestPacker(t *testing.T) {
 		t.Error("unexpected buffer length")
 	}
 
-	packer.WriteUInt8(0)
+	packer.WriteUint8(0)
 	if buffer.Len() != 5 {
 		t.Error("unexpected buffer length")
 	}
 
-	packer.WriteUInt16(0)
+	packer.WriteUint16(0)
 	if buffer.Len() != 7 {
 		t.Error("unexpected buffer length")
 	}
 
-	packer.WriteUInt32(0)
+	packer.WriteUint32(0)
 	if buffer.Len() != 11 {
 		t.Error("unexpected buffer length")
 	}
 
-	packer.WriteUInt64(0)
+	packer.WriteUint64(0)
 	if buffer.Len() != 19 {
 		t.Error("unexpected buffer length")
 	}
@@ -122,9 +122,9 @@ func TestPacker(t *testing.T) {
 func TestPackerByteOrder(t *testing.T) {
 	buffer := new(bytes.Buffer)
 	packer, _ := NewPacker(buffer)
-	packer.WriteUInt32(0x12345678)
+	packer.WriteUint32(0x12345678)
 	packer.SetByteOrder(binary.BigEndian)
-	packer.WriteUInt32(0x12345678)
+	packer.WriteUint32(0x12345678)
 
 	res := bytes.Compare(
 		buffer.Bytes(),

@@ -32,10 +32,10 @@ func TestNewUnpackerNil(t *testing.T) {
 func TestUnpacker(t *testing.T) {
 	buffer := new(bytes.Buffer)
 	packer, _ := NewPacker(buffer)
-	packer.WriteUInt8(0x12)
-	packer.WriteUInt16(0x1234)
-	packer.WriteUInt32(0x12345678)
-	packer.WriteUInt64(0x1234567890ABCDEF)
+	packer.WriteUint8(0x12)
+	packer.WriteUint16(0x1234)
+	packer.WriteUint32(0x12345678)
+	packer.WriteUint64(0x1234567890ABCDEF)
 	packer.WriteInt8(0x12)
 	packer.WriteInt16(0x1234)
 	packer.WriteInt32(0x12345678)
@@ -55,19 +55,19 @@ func TestUnpacker(t *testing.T) {
 		t.Errorf("unable to create unpacker: %s", err.Error())
 	}
 
-	if unpacker.ReadUInt8() != 0x12 {
+	if unpacker.ReadUint8() != 0x12 {
 		t.Error("unexpected read value")
 	}
 
-	if unpacker.ReadUInt16() != 0x1234 {
+	if unpacker.ReadUint16() != 0x1234 {
 		t.Error("unexpected read value")
 	}
 
-	if unpacker.ReadUInt32() != 0x12345678 {
+	if unpacker.ReadUint32() != 0x12345678 {
 		t.Error("unexpected read value")
 	}
 
-	if unpacker.ReadUInt64() != 0x1234567890ABCDEF {
+	if unpacker.ReadUint64() != 0x1234567890ABCDEF {
 		t.Error("unexpected read value")
 	}
 
@@ -119,19 +119,19 @@ func TestUnpackerByteOrder(t *testing.T) {
 	buffer := new(bytes.Buffer)
 
 	packer, _ := NewPacker(buffer)
-	packer.WriteUInt32(0x12345678)
+	packer.WriteUint32(0x12345678)
 	packer.SetByteOrder(binary.BigEndian)
-	packer.WriteUInt32(0x12345678)
+	packer.WriteUint32(0x12345678)
 
 	unpacker, _ := NewUnpacker(buffer)
 
-	if unpacker.ReadUInt32() != 0x12345678 {
+	if unpacker.ReadUint32() != 0x12345678 {
 		t.Error("unexpected read value")
 	}
 
 	unpacker.SetByteOrder(binary.BigEndian)
 
-	if unpacker.ReadUInt32() != 0x12345678 {
+	if unpacker.ReadUint32() != 0x12345678 {
 		t.Error("unexpected read value")
 	}
 }

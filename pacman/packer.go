@@ -12,10 +12,10 @@ type Packer interface {
 
 	Write(v interface{})
 
-	WriteUInt8(v interface{})
-	WriteUInt16(v interface{})
-	WriteUInt32(v interface{})
-	WriteUInt64(v interface{})
+	WriteUint8(v interface{})
+	WriteUint16(v interface{})
+	WriteUint32(v interface{})
+	WriteUint64(v interface{})
 
 	WriteInt8(v interface{})
 	WriteInt16(v interface{})
@@ -46,47 +46,14 @@ func (packer *packer) Write(v interface{}) {
 	binary.Write(packer.writer, packer.byteOrder, v)
 }
 
-func (packer *packer) WriteUInt8(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(uint8))
-}
-func (packer *packer) WriteUInt16(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(uint16))
-}
-func (packer *packer) WriteUInt32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(uint32))
-}
-func (packer *packer) WriteUInt64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(uint64))
-}
-
-func (packer *packer) WriteInt8(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(int8))
-}
-func (packer *packer) WriteInt16(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(int16))
-}
-func (packer *packer) WriteInt32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(int32))
-}
-func (packer *packer) WriteInt64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(int64))
-}
-
-func (packer *packer) WriteFloat32(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(float32))
-}
-func (packer *packer) WriteFloat64(v interface{}) {
-	binary.Write(packer.writer, packer.byteOrder, v.(float64))
-}
-
 func (packer *packer) WriteString(v string) {
-	packer.WriteUInt32((uint32)(len(v)))
+	packer.WriteUint32((uint32)(len(v)))
 	packer.Write([]byte(v))
 }
 
 func (packer *packer) WriteBlock(v Block) {
 	buffer := (v.(*block)).data.Bytes()
-	packer.WriteUInt32((uint32)(len(buffer)))
+	packer.WriteUint32((uint32)(len(buffer)))
 	packer.Write(buffer)
 }
 
@@ -101,7 +68,7 @@ func (packer *packer) EndBlock() {
 		panic("there is no current block")
 	}
 	buffer := (packer.currentBlock.(*block)).data.Bytes()
-	packer.WriteUInt32((uint32)(len(buffer)))
+	packer.WriteUint32((uint32)(len(buffer)))
 	packer.Write(buffer)
 	packer.currentBlock = nil
 }
