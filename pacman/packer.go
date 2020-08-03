@@ -82,7 +82,7 @@ func (packer *packer) WriteInt64(v int64) {
 	binary.Write(packer.writer, packer.byteOrder, v)
 }
 
-func (packer *packer) WriteInt(v uint) {
+func (packer *packer) WriteInt(v int) {
 	packer.WriteInt32((int32)(v))
 }
 
