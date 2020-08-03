@@ -12,24 +12,18 @@ type Packer interface {
 
 	Write(v interface{})
 
-	WriteUInt8(v uint8)
-	WriteUInt16(v uint16)
-	WriteUInt32(v uint32)
-	WriteUInt64(v uint64)
+	WriteUInt8(v interface{})
+	WriteUInt16(v interface{})
+	WriteUInt32(v interface{})
+	WriteUInt64(v interface{})
 
-	// Writes as a 32 bit unsigned integer
-	WriteUInt(v uint)
+	WriteInt8(v interface{})
+	WriteInt16(v interface{})
+	WriteInt32(v interface{})
+	WriteInt64(v interface{})
 
-	WriteInt8(v int8)
-	WriteInt16(v int16)
-	WriteInt32(v int32)
-	WriteInt64(v int64)
-
-	// Writes as a 32 bit integer
-	WriteInt(v int)
-
-	WriteFloat32(v float32)
-	WriteFloat64(v float64)
+	WriteFloat32(v interface{})
+	WriteFloat64(v interface{})
 
 	WriteString(v string)
 	WriteBlock(v Block)
@@ -52,45 +46,37 @@ func (packer *packer) Write(v interface{}) {
 	binary.Write(packer.writer, packer.byteOrder, v)
 }
 
-func (packer *packer) WriteUInt8(v uint8) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteUInt8(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, uint8(v))
 }
-func (packer *packer) WriteUInt16(v uint16) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteUInt16(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, uint16(v))
 }
-func (packer *packer) WriteUInt32(v uint32) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteUInt32(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, uint32(v))
 }
-func (packer *packer) WriteUInt64(v uint64) {
-	binary.Write(packer.writer, packer.byteOrder, v)
-}
-
-func (packer *packer) WriteUInt(v uint) {
-	packer.WriteUInt32((uint32)(v))
+func (packer *packer) WriteUInt64(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, uint64(v))
 }
 
-func (packer *packer) WriteInt8(v int8) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteInt8(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, int8(v))
 }
-func (packer *packer) WriteInt16(v int16) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteInt16(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, int16(v))
 }
-func (packer *packer) WriteInt32(v int32) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteInt32(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, int32(v))
 }
-func (packer *packer) WriteInt64(v int64) {
-	binary.Write(packer.writer, packer.byteOrder, v)
-}
-
-func (packer *packer) WriteInt(v int) {
-	packer.WriteInt32((int32)(v))
+func (packer *packer) WriteInt64(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, int64(v))
 }
 
-func (packer *packer) WriteFloat32(v float32) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteFloat32(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, float32(v))
 }
-func (packer *packer) WriteFloat64(v float64) {
-	binary.Write(packer.writer, packer.byteOrder, v)
+func (packer *packer) WriteFloat64(v interface{}) {
+	binary.Write(packer.writer, packer.byteOrder, float64(v))
 }
 
 func (packer *packer) WriteString(v string) {
