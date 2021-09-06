@@ -35,7 +35,12 @@ type Unpacker interface {
 	ReadFloat64() float64
 
 	ReadString() string
+	ReadStringSize(size int) string
+
 	ReadBlock() Unpacker
+	ReadBlockSize(size int) Unpacker
+
+	ReadBytes(size int) []byte
 }
 
 type unpacker struct {
@@ -90,18 +95,32 @@ func (unpacker *unpacker) ReadIntFrom64() int {
 }
 
 func (unpacker *unpacker) ReadString() string {
-	strLength := unpacker.ReadUint32()
-	buffer := make([]byte, strLength)
+	strLength := unpacker.ReadIntFrom32()
+	return unpacker.ReadStringSize(strLength)
+}
+
+func (unpacker *unpacker) ReadStringSize(size int) string {
+	buffer := make([]byte, size)
 	unpacker.reader.Read(buffer)
 	return string(buffer)
 }
 
 func (unpacker *unpacker) ReadBlock() Unpacker {
-	bufferLength := unpacker.ReadUint32()
-	buffer := make([]byte, bufferLength)
+	bufferLength := unpacker.ReadIntFrom32()
+	return unpacker.ReadBlockSize(bufferLength)
+}
+
+func (unpacker *unpacker) ReadBlockSize(size int) Unpacker {
+	buffer := make([]byte, size)
 	unpacker.reader.Read(buffer)
 	ret, _ := NewUnpacker(bytes.NewBuffer(buffer))
 	return ret
+}
+
+func (unpacker *unpacker) ReadBytes(size int) []byte {
+	buffer := make([]byte, size)
+	unpacker.reader.Read(buffer)
+	return buffer
 }
 
 // NewUnpacker creates a new unpacker from a reader
